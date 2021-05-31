@@ -9,6 +9,8 @@ function Todo () {
 
     const [tasksExist, setTasksExist] = useState(false);
 
+    const [completed, setCompleted] = useState(false);
+
     let taskarray = [];
 
     let notearray = [];
@@ -20,22 +22,25 @@ function Todo () {
     }
 
     function addTask (e) {
+      setTasksExist(true);
 
       e.preventDefault();
 
       console.log("adding task");
 
-      taskarray.push( {
-        task: e.target.value
+      taskarray.push(
+        {
+        ID: Math.random * 100,
+        taskName: e.target.value,
+        progress: completed
       }
       
       );
-
+      console.log(e);
+      
       console.log(e.target.value);
 
       setTasks(taskarray);
-
-      setTasksExist(true);
     }
 
     /* function removeTask(e) {
@@ -79,7 +84,7 @@ function Todo () {
 
      //basically going to give notes the same functionality minus markCompleted, displayCompleted, and displayUncompleted
 
-    const listTasks = tasks.forEach((task) => <li>  Task: {task} </li> ) 
+    const listTasks = tasks.map((task,i) => {return( <li key = {i}>  Task: {task.taskName} </li> )}) 
 
     //const listNotes = notes.forEach((note) => <li> Note: {note} </li>) 
 
@@ -107,8 +112,8 @@ function Todo () {
 
           <form className={classes.root} >
      
-            <TextField id="filled-basic" label="Add a task" variant="filled" onChange = {handleChange}/>
-            <input type="submit" onClick = {addTask}/>
+            <TextField id="filled-basic" label="Add a task" variant="filled" onChange = {(e) => handleChange(e)}/>
+            <input type="submit" label= "add task" onClick = {(e) => addTask(e)}/>
       
             </form>
 
@@ -119,7 +124,7 @@ function Todo () {
       
             </form> */}
 
-            <> {tasksExist ? <> hi: {listTasks} </> : <p> no tasks yet </p> } </>
+            <> {tasksExist ? <> {listTasks} </> : <p> no tasks yet </p> } </>
 
             <> </>
 
